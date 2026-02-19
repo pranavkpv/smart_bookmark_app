@@ -50,7 +50,7 @@ export default function DashboardPage() {
     if (!title || !url) return;
     try {
       if (editingId) {
-        await bookmarkService.update(editingId, title, url);
+        await bookmarkService.update(editingId, title, url,user.id);
         setEditingId(null);
       } else {
         await bookmarkService.add(title, url, user.id);
