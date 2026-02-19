@@ -1,8 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
   const router = useRouter();
+  const { data } = await supabase.auth.getUser();
+
+  if (data.user) {
+    redirect("/dashboard");
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -14,7 +19,7 @@ export default function Home() {
           </div>
           <span className="text-xl font-bold tracking-tight text-slate-800">SmartBookmark</span>
         </div>
-        <button 
+        <button
           onClick={() => router.push("/login")}
           className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors"
         >
@@ -29,9 +34,9 @@ export default function Home() {
             Manage your links <br />
             <span className="text-blue-600">smarter, not harder.</span>
           </h1>
-          
+
           <p className="text-lg text-slate-600 mb-10 max-w-xl mx-auto leading-relaxed">
-            The all-in-one bookmarking tool designed for developers and researchers. 
+            The all-in-one bookmarking tool designed for developers and researchers.
             Organize, search, and access your favorite resources in seconds.
           </p>
 
@@ -42,7 +47,7 @@ export default function Home() {
             >
               Get Started for Free
             </button>
-            
+
             <button
               className="bg-white border border-slate-200 text-slate-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all"
             >
